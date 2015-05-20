@@ -1,0 +1,383 @@
+@prefix : <http://www.glytoucan.org/glyco/owl/glytoucan#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix glycan: <http://purl.jp/bio/12/glyco/glycan#> .
+@base <http://www.glytoucan.org/glyco/owl/glytoucan> .
+
+<http://www.glytoucan.org/glyco/owl/glytoucan> rdf:type owl:Ontology ;
+                                               
+                                               rdfs:comment """Motif SubClassOf Saccharide
+
+has_motif  SubClassOf has_substructure """ ,
+                                                            """add ' is glycosequence of ' Object Property
+add ' is carbohydrate residue ' Object Property""" ,
+                                                            "ver 0.09" ,
+                                                            "add 'has subsume'" .
+
+
+#################################################################
+#
+#    Annotation properties
+#
+#################################################################
+
+
+###  http://purl.org/dc/elements/1.1/format
+
+dc:format rdf:type owl:AnnotationProperty ;
+          
+          rdfs:domain glycan:image .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#contributor
+
+:contributor rdf:type owl:AnnotationProperty ;
+             
+             rdfs:label "contributor"@en ;
+             
+             rdfs:comment "This object is contributor who is registerd glycan structure at the glytoucan."@en ;
+             
+             rdfs:domain glycan:resource_entry .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#date_registered
+
+:date_registered rdf:type owl:AnnotationProperty ;
+                 
+                 rdfs:label "data registered"@en ;
+                 
+                 rdfs:domain glycan:resource_entry .
+
+
+
+###  http://xmlns.com/foaf/0.1/name
+
+foaf:name rdf:type owl:AnnotationProperty ;
+          
+          rdfs:domain <http://www.glytoucan.org/owl/genid0> .
+
+
+
+
+
+#################################################################
+#
+#    Datatypes
+#
+#################################################################
+
+
+###  http://purl.jp/bio/12/glyco/glycan#resource_entry
+
+glycan:resource_entry rdf:type rdfs:Datatype .
+
+
+
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://purl.jp/bio/12/glyco/glycan#has_glycosequence
+
+glycan:has_glycosequence rdf:type owl:ObjectProperty ;
+                         
+                         rdfs:label "has glycosequence"@en .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#contributor
+
+:contributor rdf:type owl:ObjectProperty ;
+             
+             rdfs:label "contributor"@en ;
+             
+             rdfs:comment "This object is contributor who is registerd glycan structure at the glytoucan."@en ;
+             
+             rdfs:range foaf:Person .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#has_derivatization_type
+
+:has_derivatization_type rdf:type owl:ObjectProperty ;
+                         
+                         rdfs:label "has derivatization type"@en ;
+                         
+                         rdfs:range :derivatization_type ;
+                         
+                         rdfs:domain :derivatized_mass .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#has_derivatized_mass
+
+:has_derivatized_mass rdf:type owl:ObjectProperty ;
+                      
+                      rdfs:label "has derivatized mass"@en ;
+                      
+                      rdfs:domain glycan:saccharide ;
+                      
+                      rdfs:range :derivatized_mass .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#has_substructure
+
+:has_substructure rdf:type owl:FunctionalProperty ,
+                           owl:ObjectProperty ;
+                  
+                  rdfs:label "has substructure"@en ;
+                  
+                  rdfs:domain glycan:saccharide ;
+                  
+                  rdfs:range glycan:saccharide .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#has_subsume
+
+:has_subsume rdf:type owl:ObjectProperty ;
+             
+             rdfs:label "has subsume"@en ;
+             
+             rdfs:domain glycan:saccharide ;
+             
+             rdfs:range glycan:saccharide ;
+             
+             owl:inverseOf :is_subsumed_by .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#has_superstructure
+
+:has_superstructure rdf:type owl:FunctionalProperty ,
+                             owl:ObjectProperty ;
+                    
+                    rdfs:label "has superstructure"@en ;
+                    
+                    rdfs:range glycan:saccharide ;
+                    
+                    rdfs:domain glycan:saccharide .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#is_carbohydrate_residue
+
+:is_carbohydrate_residue rdf:type owl:ObjectProperty ;
+                         
+                         rdfs:label "is cabohydrate residue"@en ;
+                         
+                         rdfs:comment "is carbohydrate residue has object that is carbohydrate residue except saccharide."@en .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#is_glycosequence_of
+
+:is_glycosequence_of rdf:type owl:ObjectProperty ;
+                     
+                     rdfs:label "is glycosequence of"@en ;
+                     
+                     owl:inverseOf glycan:has_glycosequence ;
+                     
+                     rdfs:range glycan:saccharide .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#is_linkage_isomer
+
+:is_linkage_isomer rdf:type owl:ObjectProperty ,
+                            owl:TransitiveProperty ;
+                   
+                   rdfs:label "is linkage isomer"@en ;
+                   
+                   rdfs:domain glycan:saccharide ;
+                   
+                   rdfs:range glycan:saccharide .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#is_subsumed_by
+
+:is_subsumed_by rdf:type owl:ObjectProperty ,
+                         owl:TransitiveProperty ;
+                
+                rdfs:label "is subsumed by"@en ;
+                
+                rdfs:range glycan:saccharide ;
+                
+                rdfs:domain glycan:saccharide .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  http://purl.org/dc/elements/1.1/format
+
+dc:format rdf:type owl:DatatypeProperty ,
+                   owl:FunctionalProperty ;
+          
+          rdfs:range xsd:string .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#date_registered
+
+:date_registered rdf:type owl:DatatypeProperty ,
+                          owl:FunctionalProperty ;
+                 
+                 rdfs:label "data registered"@en ;
+                 
+                 rdfs:range xsd:dateTimeStamp .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#has_mass
+
+:has_mass rdf:type owl:DatatypeProperty ;
+          
+          rdfs:label "has mass"@en ;
+          
+          rdfs:domain :derivatized_mass ;
+          
+          rdfs:range xsd:double .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#has_primary_id
+
+:has_primary_id rdf:type owl:DatatypeProperty ;
+                
+                rdfs:label "has primary id"@en ;
+                
+                rdfs:comment "This object is accession number." ;
+                
+                rdfs:domain glycan:saccharide ;
+                
+                rdfs:range rdfs:Literal .
+
+
+
+###  http://xmlns.com/foaf/0.1/name
+
+foaf:name rdf:type owl:DatatypeProperty ;
+          
+          rdfs:range rdfs:Literal .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://purl.jp/bio/12/glyco/glycan#glycan_database
+
+glycan:glycan_database rdf:type owl:Class .
+
+
+
+###  http://purl.jp/bio/12/glyco/glycan#saccharide
+
+glycan:saccharide rdf:type owl:Class .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#derivatization_type
+
+:derivatization_type rdf:type owl:Class ;
+                     
+                     rdfs:label "Derivatization Type"^^xsd:string .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#derivatized_mass
+
+:derivatized_mass rdf:type owl:Class ;
+                  
+                  rdfs:label "Derivatized Mass"^^xsd:string .
+
+
+
+###  http://xmlns.com/foaf/0.1/Person
+
+foaf:Person rdf:type owl:Class ;
+            
+            rdfs:label "Person" .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#database_glytoucan
+
+:database_glytoucan rdf:type glycan:glycan_database ,
+                             owl:NamedIndividual ;
+                    
+                    rdfs:label "GlyTouCan"^^xsd:string ;
+                    
+                    foaf:name "GlyTouCan"^^xsd:string ;
+                    
+                    rdfs:seeAlso "http://glytoucan.org"^^xsd:anyURI .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#derivatization_type_none
+
+:derivatization_type_none rdf:type :derivatization_type ,
+                                   owl:NamedIndividual ;
+                          
+                          rdfs:label "none" .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#derivatization_type_peracethylated
+
+:derivatization_type_peracethylated rdf:type :derivatization_type ,
+                                             owl:NamedIndividual ;
+                                    
+                                    rdfs:label "Peracethylated" .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#derivatization_type_permethylated
+
+:derivatization_type_permethylated rdf:type :derivatization_type ,
+                                            owl:NamedIndividual ;
+                                   
+                                   rdfs:label "Permethylated" .
+
+
+
+
+###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
+
