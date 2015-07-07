@@ -272,7 +272,7 @@ dc:format rdf:type owl:DatatypeProperty ,
                 
                 rdfs:domain glycan:saccharide ;
                 
-                rdfs:range rdfs:Literal .
+                rdfs:range xsd:string .
 
 
 
