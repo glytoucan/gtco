@@ -11,12 +11,12 @@
 
 <http://www.glytoucan.org/glyco/owl/glytoucan> rdf:type owl:Ontology ;
                                                
-                                               rdfs:comment """Motif SubClassOf Saccharide
+                                               rdfs:comment "ver 0.10" ,
+                                                            """Motif SubClassOf Saccharide
 
 has_motif  SubClassOf has_substructure """ ,
                                                             """add ' is glycosequence of ' Object Property
 add ' is carbohydrate residue ' Object Property""" ,
-                                                            "ver 0.09" ,
                                                             "add 'has subsume'" .
 
 
@@ -195,25 +195,25 @@ glycan:has_glycosequence rdf:type owl:ObjectProperty ;
 
 
 
-###  http://www.glytoucan.org/glyco/owl/glytoucan#is_linkage_isomer
-
-:is_linkage_isomer rdf:type owl:ObjectProperty ,
-                            owl:TransitiveProperty ;
-                   
-                   rdfs:label "is linkage isomer"@en ;
-                   
-                   rdfs:domain glycan:saccharide ;
-                   
-                   rdfs:range glycan:saccharide .
-
-
-
 ###  http://www.glytoucan.org/glyco/owl/glytoucan#is_subsumed_by
 
 :is_subsumed_by rdf:type owl:ObjectProperty ,
                          owl:TransitiveProperty ;
                 
                 rdfs:label "is subsumed by"@en ;
+                
+                rdfs:range glycan:saccharide ;
+                
+                rdfs:domain glycan:saccharide .
+
+
+
+###  http://www.glytoucan.org/glyco/owl/glytoucan#linkage_isomer
+
+:linkage_isomer rdf:type owl:ObjectProperty ,
+                         owl:TransitiveProperty ;
+                
+                rdfs:label "linkage isomer"@en ;
                 
                 rdfs:range glycan:saccharide ;
                 
