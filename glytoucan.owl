@@ -11,13 +11,9 @@
 
 <http://www.glytoucan.org/glyco/owl/glytoucan> rdf:type owl:Ontology ;
                                                
-                                               rdfs:comment "ver 0.10" ,
-                                                            """Motif SubClassOf Saccharide
-
-has_motif  SubClassOf has_substructure """ ,
-                                                            """add ' is glycosequence of ' Object Property
-add ' is carbohydrate residue ' Object Property""" ,
-                                                            "add 'has subsume'" .
+                                               rdfs:comment "ver 1.0" ;
+                                               
+                                               owl:imports <http://purl.jp/bio/12/glyco/glycan> .
 
 
 #################################################################
@@ -31,7 +27,8 @@ add ' is carbohydrate residue ' Object Property""" ,
 
 dc:format rdf:type owl:AnnotationProperty ;
           
-          rdfs:domain glycan:image .
+          rdfs:domain glycan:image ,
+                      foaf:Image .
 
 
 
@@ -53,6 +50,8 @@ dc:format rdf:type owl:AnnotationProperty ;
                  
                  rdfs:label "data registered"@en ;
                  
+                 rdfs:comment "The date she glycan structure(s) are registered in GlyTouCan." ;
+                 
                  rdfs:domain glycan:resource_entry .
 
 
@@ -61,7 +60,10 @@ dc:format rdf:type owl:AnnotationProperty ;
 
 foaf:name rdf:type owl:AnnotationProperty ;
           
-          rdfs:domain <http://www.glytoucan.org/owl/genid0> .
+          rdfs:comment "Object is contributior name." ;
+          
+          rdfs:domain <http://www.glytoucan.org/owl/genid0> ,
+                      foaf:Person .
 
 
 
@@ -87,14 +89,6 @@ glycan:resource_entry rdf:type rdfs:Datatype .
 #    Object Properties
 #
 #################################################################
-
-
-###  http://purl.jp/bio/12/glyco/glycan#has_glycosequence
-
-glycan:has_glycosequence rdf:type owl:ObjectProperty ;
-                         
-                         rdfs:label "has glycosequence"@en .
-
 
 
 ###  http://www.glytoucan.org/glyco/owl/glytoucan#contributor
@@ -127,97 +121,7 @@ glycan:has_glycosequence rdf:type owl:ObjectProperty ;
                       
                       rdfs:label "has derivatized mass"@en ;
                       
-                      rdfs:domain glycan:saccharide ;
-                      
                       rdfs:range :derivatized_mass .
-
-
-
-###  http://www.glytoucan.org/glyco/owl/glytoucan#has_substructure
-
-:has_substructure rdf:type owl:FunctionalProperty ,
-                           owl:ObjectProperty ;
-                  
-                  rdfs:label "has substructure"@en ;
-                  
-                  rdfs:domain glycan:saccharide ;
-                  
-                  rdfs:range glycan:saccharide .
-
-
-
-###  http://www.glytoucan.org/glyco/owl/glytoucan#has_subsume
-
-:has_subsume rdf:type owl:ObjectProperty ;
-             
-             rdfs:label "has subsume"@en ;
-             
-             rdfs:domain glycan:saccharide ;
-             
-             rdfs:range glycan:saccharide ;
-             
-             owl:inverseOf :is_subsumed_by .
-
-
-
-###  http://www.glytoucan.org/glyco/owl/glytoucan#has_superstructure
-
-:has_superstructure rdf:type owl:FunctionalProperty ,
-                             owl:ObjectProperty ;
-                    
-                    rdfs:label "has superstructure"@en ;
-                    
-                    rdfs:range glycan:saccharide ;
-                    
-                    rdfs:domain glycan:saccharide .
-
-
-
-###  http://www.glytoucan.org/glyco/owl/glytoucan#is_carbohydrate_residue
-
-:is_carbohydrate_residue rdf:type owl:ObjectProperty ;
-                         
-                         rdfs:label "is cabohydrate residue"@en ;
-                         
-                         rdfs:comment "is carbohydrate residue has object that is carbohydrate residue except saccharide."@en .
-
-
-
-###  http://www.glytoucan.org/glyco/owl/glytoucan#is_glycosequence_of
-
-:is_glycosequence_of rdf:type owl:ObjectProperty ;
-                     
-                     rdfs:label "is glycosequence of"@en ;
-                     
-                     owl:inverseOf glycan:has_glycosequence ;
-                     
-                     rdfs:range glycan:saccharide .
-
-
-
-###  http://www.glytoucan.org/glyco/owl/glytoucan#is_subsumed_by
-
-:is_subsumed_by rdf:type owl:ObjectProperty ,
-                         owl:TransitiveProperty ;
-                
-                rdfs:label "is subsumed by"@en ;
-                
-                rdfs:range glycan:saccharide ;
-                
-                rdfs:domain glycan:saccharide .
-
-
-
-###  http://www.glytoucan.org/glyco/owl/glytoucan#linkage_isomer
-
-:linkage_isomer rdf:type owl:ObjectProperty ,
-                         owl:TransitiveProperty ;
-                
-                rdfs:label "linkage isomer"@en ;
-                
-                rdfs:range glycan:saccharide ;
-                
-                rdfs:domain glycan:saccharide .
 
 
 
@@ -246,6 +150,8 @@ dc:format rdf:type owl:DatatypeProperty ,
                  
                  rdfs:label "data registered"@en ;
                  
+                 rdfs:comment "The date she glycan structure(s) are registered in GlyTouCan." ;
+                 
                  rdfs:range xsd:dateTimeStamp .
 
 
@@ -268,9 +174,7 @@ dc:format rdf:type owl:DatatypeProperty ,
                 
                 rdfs:label "has primary id"@en ;
                 
-                rdfs:comment "This object is accession number." ;
-                
-                rdfs:domain glycan:saccharide ;
+                rdfs:comment "This object is accession number of the GlyTouCan." ;
                 
                 rdfs:range xsd:string .
 
@@ -279,6 +183,8 @@ dc:format rdf:type owl:DatatypeProperty ,
 ###  http://xmlns.com/foaf/0.1/name
 
 foaf:name rdf:type owl:DatatypeProperty ;
+          
+          rdfs:comment "Object is contributior name." ;
           
           rdfs:range rdfs:Literal .
 
@@ -296,12 +202,6 @@ foaf:name rdf:type owl:DatatypeProperty ;
 ###  http://purl.jp/bio/12/glyco/glycan#glycan_database
 
 glycan:glycan_database rdf:type owl:Class .
-
-
-
-###  http://purl.jp/bio/12/glyco/glycan#saccharide
-
-glycan:saccharide rdf:type owl:Class .
 
 
 
@@ -325,7 +225,9 @@ glycan:saccharide rdf:type owl:Class .
 
 foaf:Person rdf:type owl:Class ;
             
-            rdfs:label "Person" .
+            rdfs:label "Person" ;
+            
+            rdfs:isDefinedBy "http://xmlns.com/foaf/spec/" .
 
 
 
