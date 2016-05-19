@@ -11,7 +11,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
 <http://www.glytoucan.org/glyco/owl/glytoucan> a owl:Ontology ;
-	rdfs:comment "ver 1.3.0" .
+	owl:versionInfo "1.4.1"^^xsd:string .
 # 
 # 
 # #################################################################
@@ -161,6 +161,11 @@ glycan:Glycan_database a owl:Class .
 
 glycan:Glycan_motif a owl:Class .
 # 
+# http://purl.jp/bio/12/glyco/glycan#Monosaccharide
+
+glycan:Monosaccharide a owl:Class ;
+	rdfs:subClassOf glycan:Saccharide .
+# 
 # http://purl.jp/bio/12/glyco/glycan#Resource_entry
 
 glycan:Resource_entry a owl:Class .
@@ -212,10 +217,6 @@ glycan:Saccharide a owl:Class .
 # http://www.glytoucan.org/glyco/owl/glytoucan#derivatized_mass
 
 :derivatized_mass a owl:Class .
-# 
-# http://xmlns.com/foaf/0.1/Person
-
-foaf:Person a owl:Class .
 # 
 # 
 # 
@@ -321,10 +322,10 @@ foaf:Person a owl:NamedIndividual .
 	rdfs:comment "The date she glycan structure(s) are registered in GlyTouCan." .
 # 
 
-:derivatization_type rdfs:label "Derivatization Type"^^xsd:string .
+:derivatization_type rdfs:label "Derivatization Type"@en .
 # 
 
-:derivatized_mass rdfs:label "Derivatized Mass"^^xsd:string .
+:derivatized_mass rdfs:label "Derivatized Mass"@en .
 # 
 
 :has_derivatization_type rdfs:label "has derivatization type"@en .
@@ -339,10 +340,6 @@ foaf:Person a owl:NamedIndividual .
 
 :has_type rdfs:comment "A glycan motif has type, such as internal, reducing end and non-reducing end"@en ;
 	rdfs:label "has type"@en .
-# 
-
-foaf:Person rdfs:isDefinedBy "http://xmlns.com/foaf/spec/" ;
-	rdfs:label "Person" .
 # 
 # 
 # 
