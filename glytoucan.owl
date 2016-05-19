@@ -11,7 +11,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
 <http://www.glytoucan.org/glyco/owl/glytoucan> a owl:Ontology ;
-	rdfs:comment "ver 1.2" .
+	rdfs:comment "ver 1.3.0" .
 # 
 # 
 # #################################################################
@@ -24,6 +24,7 @@
 # http://purl.org/dc/elements/1.1/format
 
 dc:format a owl:AnnotationProperty ;
+	rdfs:isDefinedBy "http://dublincore.org/documents/2012/06/14/dcmi-terms/" ;
 	rdfs:domain glycan:image , foaf:Image .
 # 
 # http://purl.org/dc/terms/identifier
@@ -71,6 +72,18 @@ foaf:name a owl:AnnotationProperty ;
 :contributor a owl:ObjectProperty ;
 	rdfs:domain glycan:Resource_entry .
 # 
+# http://www.glytoucan.org/glyco/owl/glytoucan#has_base_composition
+
+:has_base_composition a owl:ObjectProperty ;
+	rdfs:subPropertyOf :subsumed_by ;
+	rdfs:label "has base composition"@en .
+# 
+# http://www.glytoucan.org/glyco/owl/glytoucan#has_composition
+
+:has_composition a owl:ObjectProperty ;
+	rdfs:subPropertyOf :subsumed_by ;
+	rdfs:label "has composition"@en .
+# 
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_derivatization_type
 
 :has_derivatization_type a owl:ObjectProperty ;
@@ -82,38 +95,40 @@ foaf:name a owl:AnnotationProperty ;
 :has_derivatized_mass a owl:ObjectProperty ;
 	rdfs:range :derivatized_mass .
 # 
+# http://www.glytoucan.org/glyco/owl/glytoucan#has_linkage_isomer
+
+:has_linkage_isomer a owl:ObjectProperty , owl:SymmetricProperty ;
+	rdfs:label "has linkage isomer"@en .
+# 
+# http://www.glytoucan.org/glyco/owl/glytoucan#has_substructure
+
+:has_substructure a owl:ObjectProperty ;
+	owl:inverseOf :has_superstructure ;
+	a owl:TransitiveProperty ;
+	rdfs:label "has substructure"@en .
+# 
+# http://www.glytoucan.org/glyco/owl/glytoucan#has_superstructure
+
+:has_superstructure a owl:ObjectProperty , owl:TransitiveProperty ;
+	rdfs:label "has superstructure"@en .
+# 
+# http://www.glytoucan.org/glyco/owl/glytoucan#has_topology
+
+:has_topology a owl:ObjectProperty ;
+	rdfs:subPropertyOf :subsumed_by ;
+	rdfs:label "has topology"@en .
+# 
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_type
 
 :has_type a owl:ObjectProperty ;
 	rdfs:domain glycan:Glycan_motif ;
 	rdfs:range :Motif_type .
 # 
-#  http://www.glytoucan.org/glyco/owl/glytoucan#has_linkage_isomer
+# http://www.glytoucan.org/glyco/owl/glytoucan#subsumed_by
 
-:has_linkage_isomer rdf:type owl:ObjectProperty ,
-                           owl:SymmetricProperty ;
-                  
-                  rdfs:label "has linkage isomer"@en .                  
-
-
-
-#  http://www.glytoucan.org/glyco/owl/glytoucan#has_substructure
-
-:has_substructure rdf:type owl:ObjectProperty ,
-                          owl:TransitiveProperty ;
-                 
-                 rdfs:label "has substructure"@en ;
-                 
-                 owl:inverseOf :has_superstructure .
-
-
-
-#  http://www.glytoucan.org/glyco/owl/glytoucan#has_superstructure
-
-:has_superstructure rdf:type owl:ObjectProperty ,
-                            owl:TransitiveProperty ;
-                   
-                   rdfs:label "has superstructure"@en . 
+:subsumed_by a owl:ObjectProperty , owl:TransitiveProperty ;
+	rdfs:label "subsumed by"@en .
+# 
 # 
 # 
 # #################################################################
@@ -123,13 +138,12 @@ foaf:name a owl:AnnotationProperty ;
 # #################################################################
 # 
 # 
-# 
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_mass
 
 :has_mass a owl:DatatypeProperty ;
 	rdfs:domain :derivatized_mass ;
 	rdfs:range xsd:double .
-#
+# 
 # 
 # 
 # #################################################################
@@ -154,6 +168,36 @@ glycan:Resource_entry a owl:Class .
 # http://purl.jp/bio/12/glyco/glycan#Saccharide
 
 glycan:Saccharide a owl:Class .
+# 
+# http://www.glytoucan.org/glyco/owl/glytoucan#Base_composition
+
+:Base_composition a owl:Class ;
+	rdfs:subClassOf glycan:Saccharide ;
+	rdfs:label "Base Composition"@en .
+# 
+# http://www.glytoucan.org/glyco/owl/glytoucan#Fully_defined_glycan
+
+:Fully_defined_glycan a owl:Class ;
+	rdfs:subClassOf :Linkage_defined_glycan ;
+	rdfs:label "Fully Defined Glycan"@en .
+# 
+# http://www.glytoucan.org/glyco/owl/glytoucan#Glycan_topology
+
+:Glycan_topology a owl:Class ;
+	rdfs:subClassOf glycan:Saccharide ;
+	rdfs:label "Glycan Topology"@en .
+# 
+# http://www.glytoucan.org/glyco/owl/glytoucan#Linkage_defined_glycan
+
+:Linkage_defined_glycan a owl:Class ;
+	rdfs:subClassOf glycan:Saccharide ;
+	rdfs:label "Linkage Defined Glycan"@en .
+# 
+# http://www.glytoucan.org/glyco/owl/glytoucan#Monosaccharide_composition
+
+:Monosaccharide_composition a owl:Class ;
+	rdfs:subClassOf glycan:Saccharide ;
+	rdfs:label "Monosaccharide Composition"@en .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#Motif_type
 
@@ -267,9 +311,6 @@ foaf:Person a owl:NamedIndividual .
 # #
 # #################################################################
 # 
-# 
-
-dc:format rdfs:isDefinedBy "http://dublincore.org/documents/2012/06/14/dcmi-terms/" .
 # 
 
 :contributor rdfs:label "contributor"@en ;
