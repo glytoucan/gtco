@@ -2,6 +2,7 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sio: <http://semanticscience.org/resource/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
@@ -10,8 +11,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
 <http://www.glytoucan.org/glyco/owl/glytoucan> a owl:Ontology ;
-	owl:imports <http://purl.jp/bio/12/glyco/glycan> ;
-	rdfs:comment "ver 1.1" .
+	rdfs:comment "ver 1.2" .
 # 
 # 
 # #################################################################
@@ -26,6 +26,16 @@
 dc:format a owl:AnnotationProperty ;
 	rdfs:domain glycan:image , foaf:Image .
 # 
+# http://purl.org/dc/terms/identifier
+
+dcterms:identifier a owl:AnnotationProperty .
+# 
+# http://semanticscience.org/resource/hasSynonym
+
+sio:hasSynonym a owl:AnnotationProperty ;
+	dcterms:identifier "hasSynonym" ;
+	rdfs:isDefinedBy <http://semanticscience.org/ontology/sio.owl> .
+# 
 # http://www.glytoucan.org/glyco/owl/glytoucan#contributor
 
 :contributor a owl:AnnotationProperty ;
@@ -35,6 +45,11 @@ dc:format a owl:AnnotationProperty ;
 
 :date_registered a owl:AnnotationProperty ;
 	rdfs:domain glycan:resource_entry .
+# 
+# http://www.w3.org/2000/01/rdf-schema#label
+
+rdfs:label rdfs:comment "Object is contributior name." ;
+	rdfs:isDefinedBy "http://www.w3.org/TR/2004/REC-rdf-schema-20040210/#ch_label" .
 # 
 # http://xmlns.com/foaf/0.1/name
 
@@ -54,7 +69,7 @@ foaf:name a owl:AnnotationProperty ;
 # http://www.glytoucan.org/glyco/owl/glytoucan#contributor
 
 :contributor a owl:ObjectProperty ;
-	rdfs:domain glycan:resource_entry .
+	rdfs:domain glycan:Resource_entry .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_derivatization_type
 
@@ -70,11 +85,35 @@ foaf:name a owl:AnnotationProperty ;
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_type
 
 :has_type a owl:ObjectProperty ;
-	rdfs:domain glycan:glycan_motif ;
-	rdfs:range :Motif_type ;
-	rdfs:comment "A glycan motif has some type of positon in glycan structure."^^xsd:string ;
-	rdfs:label "has type"^^xsd:string .
+	rdfs:domain glycan:Glycan_motif ;
+	rdfs:range :Motif_type .
 # 
+#  http://www.glytoucan.org/glyco/owl/glytoucan#has_linkage_isomer
+
+:has_linkage_isomer rdf:type owl:ObjectProperty ,
+                           owl:SymmetricProperty ;
+                  
+                  rdfs:label "has linkage isomer"@en .                  
+
+
+
+#  http://www.glytoucan.org/glyco/owl/glytoucan#has_substructure
+
+:has_substructure rdf:type owl:ObjectProperty ,
+                          owl:TransitiveProperty ;
+                 
+                 rdfs:label "has substructure"@en ;
+                 
+                 owl:inverseOf :has_superstructure .
+
+
+
+#  http://www.glytoucan.org/glyco/owl/glytoucan#has_superstructure
+
+:has_superstructure rdf:type owl:ObjectProperty ,
+                            owl:TransitiveProperty ;
+                   
+                   rdfs:label "has superstructure"@en . 
 # 
 # 
 # #################################################################
@@ -84,32 +123,13 @@ foaf:name a owl:AnnotationProperty ;
 # #################################################################
 # 
 # 
-# http://purl.org/dc/elements/1.1/format
-
-dc:format a owl:DatatypeProperty , owl:FunctionalProperty .
-# 
-# http://purl.org/dc/terms/dateSubmitted
-
-dcterms:dateSubmitted a owl:DatatypeProperty , owl:FunctionalProperty ;
-	rdfs:comment "The date she glycan structure(s) are registered in GlyTouCan." ;
-	rdfs:isDefinedBy "http://dublincore.org/documents/dcmi-terms/#terms-dateSubmitted" .
-# 
-# http://purl.org/dc/terms/identifier
-
-dcterms:identifier a owl:DatatypeProperty ;
-	rdfs:comment "This object is accession number of the GlyTouCan." ;
-	rdfs:isDefinedBy "http://dublincore.org/documents/2012/06/14/dcmi-terms/?v=terms#identifier" .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_mass
 
 :has_mass a owl:DatatypeProperty ;
 	rdfs:domain :derivatized_mass ;
 	rdfs:range xsd:double .
-# 
-# http://www.w3.org/2000/01/rdf-schema#label
-
-rdfs:label a owl:DatatypeProperty .
-# 
+#
 # 
 # 
 # #################################################################
@@ -119,15 +139,27 @@ rdfs:label a owl:DatatypeProperty .
 # #################################################################
 # 
 # 
-# http://purl.jp/bio/12/glyco/glycan#glycan_database
+# http://purl.jp/bio/12/glyco/glycan#Glycan_database
 
-glycan:glycan_database a owl:Class .
+glycan:Glycan_database a owl:Class .
+# 
+# http://purl.jp/bio/12/glyco/glycan#Glycan_motif
+
+glycan:Glycan_motif a owl:Class .
+# 
+# http://purl.jp/bio/12/glyco/glycan#Resource_entry
+
+glycan:Resource_entry a owl:Class .
+# 
+# http://purl.jp/bio/12/glyco/glycan#Saccharide
+
+glycan:Saccharide a owl:Class .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#Motif_type
 
 :Motif_type a owl:Class ;
-	rdfs:comment "Motif type means position type that appear in glycan structure."^^xsd:string ;
-	rdfs:label "Motif type"^^xsd:string .
+	rdfs:comment "Motif type means position type that appear in glycan structure."@en ;
+	rdfs:label "Motif type"@en .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#derivatization_type
 
@@ -152,37 +184,41 @@ foaf:Person a owl:Class .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#Motif_type_internal
 
-:Motif_type_internal a owl:NamedIndividual , :Motif_type .
+:Motif_type_internal a owl:NamedIndividual , :Motif_type ;
+	rdfs:comment "A glycan motif  internal apper in the glycan structure."@en ;
+	rdfs:label "Internal"@en .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#Motif_type_non_reducing_end
 
-:Motif_type_non_reducing_end a owl:NamedIndividual , :Motif_type .
+:Motif_type_non_reducing_end a owl:NamedIndividual , :Motif_type ;
+	sio:hasSynonym "Non-reducing terminal"@en ;
+	rdfs:comment "A glycan motif non-reducing end apper in the glycan structure."@en ;
+	rdfs:label "Non-reducing end"@en .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#Motif_type_reducing_end
 
-:Motif_type_reducing_end a owl:NamedIndividual , :Motif_type .
+:Motif_type_reducing_end a owl:NamedIndividual , :Motif_type ;
+	rdfs:comment "A glycan motif reducing end apper in the glycan structure."@en ;
+	rdfs:label "Reducing end"@en .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#contributor
 
-:contributor a owl:NamedIndividual ;
-	rdfs:label "contributor"@en .
+:contributor a owl:NamedIndividual .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#database_glytoucan
 
-:database_glytoucan a owl:NamedIndividual , glycan:glycan_database ;
+:database_glytoucan a owl:NamedIndividual , glycan:Glycan_database ;
 	rdfs:label "GlyTouCan"^^xsd:string ;
 	rdfs:seeAlso "http://glytoucan.org"^^xsd:anyURI ;
 	foaf:name "GlyTouCan"^^xsd:string .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#date_registered
 
-:date_registered a owl:NamedIndividual ;
-	rdfs:label "data registered"@en .
+:date_registered a owl:NamedIndividual .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#derivatization_type
 
-:derivatization_type a owl:NamedIndividual ;
-	rdfs:label "Derivatization Type"^^xsd:string .
+:derivatization_type a owl:NamedIndividual .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#derivatization_type_none
 
@@ -201,28 +237,27 @@ foaf:Person a owl:Class .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#derivatized_mass
 
-:derivatized_mass a owl:NamedIndividual ;
-	rdfs:label "Derivatized Mass"^^xsd:string .
+:derivatized_mass a owl:NamedIndividual .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_derivatization_type
 
-:has_derivatization_type a owl:NamedIndividual ;
-	rdfs:label "has derivatization type"@en .
+:has_derivatization_type a owl:NamedIndividual .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_derivatized_mass
 
-:has_derivatized_mass a owl:NamedIndividual ;
-	rdfs:label "has derivatized mass"@en .
+:has_derivatized_mass a owl:NamedIndividual .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_mass
 
-:has_mass a owl:NamedIndividual ;
-	rdfs:label "has mass"@en .
+:has_mass a owl:NamedIndividual .
+# 
+# http://www.glytoucan.org/glyco/owl/glytoucan#has_type
+
+:has_type a owl:NamedIndividual .
 # 
 # http://xmlns.com/foaf/0.1/Person
 
-foaf:Person a owl:NamedIndividual ;
-	rdfs:label "Person" .
+foaf:Person a owl:NamedIndividual .
 # 
 # 
 # 
@@ -237,20 +272,36 @@ foaf:Person a owl:NamedIndividual ;
 dc:format rdfs:isDefinedBy "http://dublincore.org/documents/2012/06/14/dcmi-terms/" .
 # 
 
-:contributor rdfs:comment "This object is contributor who is registerd glycan structure at the glytoucan."@en .
+:contributor rdfs:label "contributor"@en ;
+	rdfs:comment "This object is contributor who is registerd glycan structure at the glytoucan."@en .
 # 
 
-:date_registered rdfs:comment "The date she glycan structure(s) are registered in GlyTouCan." .
+:date_registered rdfs:label "data registered"@en ;
+	rdfs:comment "The date she glycan structure(s) are registered in GlyTouCan." .
 # 
 
-:has_mass rdfs:comment "value of the mass spectrometry." .
+:derivatization_type rdfs:label "Derivatization Type"^^xsd:string .
 # 
 
-rdfs:label rdfs:comment "Object is contributior name." ;
-	rdfs:isDefinedBy "http://www.w3.org/TR/2004/REC-rdf-schema-20040210/#ch_label" .
+:derivatized_mass rdfs:label "Derivatized Mass"^^xsd:string .
 # 
 
-foaf:Person rdfs:isDefinedBy "http://xmlns.com/foaf/spec/" .
+:has_derivatization_type rdfs:label "has derivatization type"@en .
+# 
+
+:has_derivatized_mass rdfs:label "has derivatized mass"@en .
+# 
+
+:has_mass rdfs:label "has mass"@en ;
+	rdfs:comment "value of the mass spectrometry." .
+# 
+
+:has_type rdfs:comment "A glycan motif has type, such as internal, reducing end and non-reducing end"@en ;
+	rdfs:label "has type"@en .
+# 
+
+foaf:Person rdfs:isDefinedBy "http://xmlns.com/foaf/spec/" ;
+	rdfs:label "Person" .
 # 
 # 
 # 
