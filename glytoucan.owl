@@ -21,12 +21,6 @@
 # #################################################################
 # 
 # 
-# http://purl.org/dc/elements/1.1/format
-
-dc:format a owl:AnnotationProperty ;
-	rdfs:isDefinedBy "http://dublincore.org/documents/2012/06/14/dcmi-terms/" ;
-	rdfs:domain glycan:image , foaf:Image .
-# 
 # http://purl.org/dc/terms/identifier
 
 dcterms:identifier a owl:AnnotationProperty .
@@ -55,8 +49,7 @@ rdfs:label rdfs:comment "Object is contributior name." ;
 # http://xmlns.com/foaf/0.1/name
 
 foaf:name a owl:AnnotationProperty ;
-	rdfs:comment "Object is contributior name." ;
-	rdfs:domain <http://www.glytoucan.org/owl/genid0> , foaf:Person .
+	rdfs:comment "Object is contributior name." .
 # 
 # 
 # 
@@ -246,24 +239,12 @@ glycan:Saccharide a owl:Class .
 	rdfs:comment "A glycan motif reducing end apper in the glycan structure."@en ;
 	rdfs:label "Reducing end"@en .
 # 
-# http://www.glytoucan.org/glyco/owl/glytoucan#contributor
-
-:contributor a owl:NamedIndividual .
-# 
 # http://www.glytoucan.org/glyco/owl/glytoucan#database_glytoucan
 
 :database_glytoucan a owl:NamedIndividual , glycan:Glycan_database ;
 	rdfs:label "GlyTouCan"^^xsd:string ;
 	rdfs:seeAlso "http://glytoucan.org"^^xsd:anyURI ;
 	foaf:name "GlyTouCan"^^xsd:string .
-# 
-# http://www.glytoucan.org/glyco/owl/glytoucan#date_registered
-
-:date_registered a owl:NamedIndividual .
-# 
-# http://www.glytoucan.org/glyco/owl/glytoucan#derivatization_type
-
-:derivatization_type a owl:NamedIndividual .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#derivatization_type_none
 
@@ -279,31 +260,6 @@ glycan:Saccharide a owl:Class .
 
 :derivatization_type_permethylated a owl:NamedIndividual , :derivatization_type ;
 	rdfs:label "Permethylated" .
-# 
-# http://www.glytoucan.org/glyco/owl/glytoucan#derivatized_mass
-
-:derivatized_mass a owl:NamedIndividual .
-# 
-# http://www.glytoucan.org/glyco/owl/glytoucan#has_derivatization_type
-
-:has_derivatization_type a owl:NamedIndividual .
-# 
-# http://www.glytoucan.org/glyco/owl/glytoucan#has_derivatized_mass
-
-:has_derivatized_mass a owl:NamedIndividual .
-# 
-# http://www.glytoucan.org/glyco/owl/glytoucan#has_mass
-
-:has_mass a owl:NamedIndividual .
-# 
-# http://www.glytoucan.org/glyco/owl/glytoucan#has_type
-
-:has_type a owl:NamedIndividual .
-# 
-# http://xmlns.com/foaf/0.1/Person
-
-foaf:Person a owl:NamedIndividual .
-# 
 # 
 # 
 # #################################################################
