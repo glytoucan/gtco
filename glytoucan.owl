@@ -11,7 +11,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
 <http://www.glytoucan.org/glyco/owl/glytoucan> a owl:Ontology ;
-	owl:versionInfo "1.4.1"^^xsd:string .
+	owl:versionInfo "1.5.1"^^xsd:string .
 # 
 # 
 # #################################################################
@@ -39,6 +39,8 @@ sio:hasSynonym a owl:AnnotationProperty ;
 # http://www.glytoucan.org/glyco/owl/glytoucan#date_registered
 
 :date_registered a owl:AnnotationProperty ;
+	rdfs:comment "The date she glycan structure(s) are registered in GlyTouCan." ;
+	rdfs:label "data registered"@en ;
 	rdfs:domain glycan:resource_entry .
 # 
 # http://www.w3.org/2000/01/rdf-schema#label
@@ -59,6 +61,11 @@ foaf:name a owl:AnnotationProperty ;
 # #
 # #################################################################
 # 
+# 
+# http://purl.jp/bio/12/glyco/glycan#has_alias
+
+glycan:has_alias a owl:ObjectProperty ;
+	rdfs:comment "reference to aliases for resource"^^xsd:string .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#contributor
 
@@ -81,12 +88,14 @@ foaf:name a owl:AnnotationProperty ;
 
 :has_derivatization_type a owl:ObjectProperty ;
 	rdfs:domain :derivatized_mass ;
-	rdfs:range :derivatization_type .
+	rdfs:range :derivatization_type ;
+	rdfs:label "has derivatization type"@en .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_derivatized_mass
 
 :has_derivatized_mass a owl:ObjectProperty ;
-	rdfs:range :derivatized_mass .
+	rdfs:range :derivatized_mass ;
+	rdfs:label "has derivatized mass"@en .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_linkage_isomer
 
@@ -115,7 +124,9 @@ foaf:name a owl:AnnotationProperty ;
 
 :has_type a owl:ObjectProperty ;
 	rdfs:domain glycan:Glycan_motif ;
-	rdfs:range :Motif_type .
+	rdfs:range :Motif_type ;
+	rdfs:comment "A glycan motif has type, such as internal, reducing end and non-reducing end"@en ;
+	rdfs:label "has type"@en .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#subsumed_by
 
@@ -131,11 +142,18 @@ foaf:name a owl:AnnotationProperty ;
 # #################################################################
 # 
 # 
+# http://purl.jp/bio/12/glyco/glycan#has_alias_name
+
+glycan:has_alias_name a owl:DatatypeProperty ;
+	rdfs:comment "Alias name of a resource."^^xsd:string .
+# 
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_mass
 
 :has_mass a owl:DatatypeProperty ;
 	rdfs:domain :derivatized_mass ;
-	rdfs:range xsd:double .
+	rdfs:range xsd:double ;
+	rdfs:comment "value of the mass spectrometry." ;
+	rdfs:label "has mass"@en .
 # 
 # 
 # 
@@ -191,6 +209,12 @@ glycan:Saccharide a owl:Class .
 	rdfs:subClassOf glycan:Saccharide ;
 	rdfs:label "Linkage Defined Glycan"@en .
 # 
+# http://www.glytoucan.org/glyco/owl/glytoucan#Monosaccharide_alias
+
+:Monosaccharide_alias a owl:Class ;
+	rdfs:subClassOf :Saccharide_alias ;
+	rdfs:label "Monosaccharide alias"@en .
+# 
 # http://www.glytoucan.org/glyco/owl/glytoucan#Monosaccharide_composition
 
 :Monosaccharide_composition a owl:Class ;
@@ -203,13 +227,20 @@ glycan:Saccharide a owl:Class .
 	rdfs:comment "Motif type means position type that appear in glycan structure."@en ;
 	rdfs:label "Motif type"@en .
 # 
+# http://www.glytoucan.org/glyco/owl/glytoucan#Saccharide_alias
+
+:Saccharide_alias a owl:Class ;
+	rdfs:label "Saccharide alias"@en .
+# 
 # http://www.glytoucan.org/glyco/owl/glytoucan#derivatization_type
 
-:derivatization_type a owl:Class .
+:derivatization_type a owl:Class ;
+	rdfs:label "Derivatization Type"@en .
 # 
 # http://www.glytoucan.org/glyco/owl/glytoucan#derivatized_mass
 
-:derivatized_mass a owl:Class .
+:derivatized_mass a owl:Class ;
+	rdfs:label "Derivatized Mass"@en .
 # 
 # 
 # 
@@ -262,6 +293,7 @@ glycan:Saccharide a owl:Class .
 	rdfs:label "Permethylated" .
 # 
 # 
+# 
 # #################################################################
 # #
 # #    Annotations
@@ -272,30 +304,6 @@ glycan:Saccharide a owl:Class .
 
 :contributor rdfs:label "contributor"@en ;
 	rdfs:comment "This object is contributor who is registerd glycan structure at the glytoucan."@en .
-# 
-
-:date_registered rdfs:label "data registered"@en ;
-	rdfs:comment "The date she glycan structure(s) are registered in GlyTouCan." .
-# 
-
-:derivatization_type rdfs:label "Derivatization Type"@en .
-# 
-
-:derivatized_mass rdfs:label "Derivatized Mass"@en .
-# 
-
-:has_derivatization_type rdfs:label "has derivatization type"@en .
-# 
-
-:has_derivatized_mass rdfs:label "has derivatized mass"@en .
-# 
-
-:has_mass rdfs:label "has mass"@en ;
-	rdfs:comment "value of the mass spectrometry." .
-# 
-
-:has_type rdfs:comment "A glycan motif has type, such as internal, reducing end and non-reducing end"@en ;
-	rdfs:label "has type"@en .
 # 
 # 
 # 
