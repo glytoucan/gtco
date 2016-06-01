@@ -11,7 +11,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
 <http://www.glytoucan.org/glyco/owl/glytoucan> a owl:Ontology ;
-	owl:versionInfo "1.5.1"^^xsd:string .
+	owl:versionInfo "1.6.1"^^xsd:string .
 # 
 # 
 # #################################################################
@@ -123,8 +123,20 @@ glycan:has_alias a owl:ObjectProperty ;
 # http://www.glytoucan.org/glyco/owl/glytoucan#has_type
 
 :has_type a owl:ObjectProperty ;
-	rdfs:domain glycan:Glycan_motif ;
-	rdfs:range :Motif_type ;
+	rdfs:domain _:genid1 .
+
+_:genid1 a owl:Class ;
+	owl:unionOf _:genid3 .
+
+_:genid3 a rdf:List ;
+	rdf:first glycan:Glycan_epitope ;
+	rdf:rest _:genid2 .
+
+_:genid2 a rdf:List ;
+	rdf:first glycan:Glycan_motif ;
+	rdf:rest rdf:nil .
+
+:has_type rdfs:range :Motif_type ;
 	rdfs:comment "A glycan motif has type, such as internal, reducing end and non-reducing end"@en ;
 	rdfs:label "has type"@en .
 # 
@@ -168,14 +180,30 @@ glycan:has_alias_name a owl:DatatypeProperty ;
 
 glycan:Glycan_database a owl:Class .
 # 
+# http://purl.jp/bio/12/glyco/glycan#Glycan_epitope
+
+glycan:Glycan_epitope a owl:Class ;
+	rdfs:subClassOf glycan:Glycan_motif ;
+	sio:hasSynonym "Glyco-epitope"@en , "Glycoepitope"@en , "Saccharide epitope"@en ;
+	rdfs:comment "A glycan epitope is a special motif which has a known biological function."@en ;
+	rdfs:label "Glycan epitope"@en .
+# 
 # http://purl.jp/bio/12/glyco/glycan#Glycan_motif
 
-glycan:Glycan_motif a owl:Class .
+glycan:Glycan_motif a owl:Class ;
+	rdfs:subClassOf glycan:Motif ;
+	rdfs:comment "A glycan motif is a sub-structure of glycans that has been named because of its frequent appearance or because of the biological meaning."@en .
 # 
 # http://purl.jp/bio/12/glyco/glycan#Monosaccharide
 
 glycan:Monosaccharide a owl:Class ;
 	rdfs:subClassOf glycan:Saccharide .
+# 
+# http://purl.jp/bio/12/glyco/glycan#Motif
+
+glycan:Motif a owl:Class ;
+	rdfs:comment "A motif is pattern of structure"@en ;
+	rdfs:label "Motif"@en .
 # 
 # http://purl.jp/bio/12/glyco/glycan#Resource_entry
 
@@ -315,18 +343,18 @@ glycan:Saccharide a owl:Class .
 # 
 # 
 
-_:genid1 a owl:AllDifferent ;
-	owl:distinctMembers _:genid4 .
+_:genid4 a owl:AllDifferent ;
+	owl:distinctMembers _:genid7 .
 
-_:genid4 a rdf:List ;
+_:genid7 a rdf:List ;
 	rdf:first :Motif_type_internal ;
-	rdf:rest _:genid3 .
+	rdf:rest _:genid6 .
 
-_:genid3 a rdf:List ;
+_:genid6 a rdf:List ;
 	rdf:first :Motif_type_non_reducing_end ;
-	rdf:rest _:genid2 .
+	rdf:rest _:genid5 .
 
-_:genid2 a rdf:List ;
+_:genid5 a rdf:List ;
 	rdf:first :Motif_type_reducing_end ;
 	rdf:rest rdf:nil .
 # 
